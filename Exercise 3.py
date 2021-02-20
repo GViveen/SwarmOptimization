@@ -41,8 +41,9 @@ population = Population(particles, clustering.QuantizationError)
 
 print("running...")
 errors = []
+n_iterations = 25
 # test
-for i in range(25):
+for i in range(n_iterations):
     population.update_pop(r1=rng.random(1)[0], r2=rng.random(1)[0])
     errors.append(clustering.QuantizationError(population.global_best))
     
@@ -64,7 +65,7 @@ labels = kmeans.labels_
 kmeans_cluster = Clustering(X, y)
 kmeans_error = kmeans_cluster.QuantizationError(centroids)
 print("k_means final error on artificial: {}".format(kmeans_error))
-print("PSO final error on artificial: {}".format(pso_errors[-1]))
+print("PSO final error on artificial after {}: {}".format(n_iterations, pso_errors[-1]))
 
 # Do the same for iris
 particles = []
@@ -79,8 +80,9 @@ for i in range(pop_size):
 population = Population(particles, iris_clustering.QuantizationError)
 
 errors = []
+n_iterations = 50
 
-for i in range(25):
+for i in range(n_iterations):
     population.update_pop(r1=rng.random(1)[0], r2=rng.random(1)[0])
     errors.append(iris_clustering.QuantizationError(population.global_best))
     
@@ -102,4 +104,4 @@ labels = kmeans.labels_
 kmeans_cluster = Clustering(x_iris, y_iris)
 kmeans_error = kmeans_cluster.QuantizationError(centroids)
 print("k_means final error on iris: {}".format(kmeans_error))
-print("PSO final error on iris: {}".format(pso_errors[-1]))
+print("PSO final error on iris after {}: {}".format(n_iterations, pso_errors[-1]))
